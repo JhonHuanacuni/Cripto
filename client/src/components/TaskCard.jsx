@@ -1,5 +1,5 @@
 
-export function TaskCard(task) {
+export function TaskCard({task}) {
   return (
     <div>
         <h1>{task.title}</h1>
