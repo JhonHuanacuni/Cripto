@@ -19,6 +19,6 @@ export function TasksList() {
         <TaskCard key={task.id} task={task} />
       ))}
     </div>
-  );
+  )
 }
 
