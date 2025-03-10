@@ -16,14 +16,17 @@ class Wallet(models.Model):
     encrypted_data = models.BinaryField()
     balance = models.DecimalField(max_digits=30, decimal_places=10, default=0)
     created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.id_wallet
 
-    def save_encrypted_wallet(self, password, amounts):
+    def save_encrypted_wallet(self, password):
         key = Fernet.generate_key()
         cipher = Fernet(key)
-        encrypted_values = cipher.encrypt(",".join(map(str, amounts)).encode())
+        encrypted_values = cipher.encrypt(",".join(map(str, [0, 0, 0])).encode())  # Todos los valores en 0
         self.encrypted_data = encrypted_values
-        os.environ[self.id_wallet] = key.decode()  # Guardamos la clave temporalmente (mejor usar un gestor seguro)
-        self.balance = sum(amounts)
+        os.environ[self.id_wallet] = key.decode()  # Guardamos la clave temporalmente (solo para pruebas)
+        self.balance = 0  # Siempre inicia en 0
         self.save()
 
     def decrypt_wallet(self, password):

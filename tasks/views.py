@@ -18,7 +18,7 @@ class WalletCreateView(APIView):
     def post(self, request):
         data = request.data
         wallet = Wallet(id_wallet=data["id_wallet"])
-        wallet.save_encrypted_wallet(data["password"], [10000000000, 1, 9999999999])  # Ejemplo de partición
+        wallet.save_encrypted_wallet(data["password"])  # Ahora no se pasan valores iniciales
         return Response(WalletSerializer(wallet).data, status=status.HTTP_201_CREATED)
 
 class TransferView(APIView):
